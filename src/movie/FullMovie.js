@@ -27,7 +27,7 @@ function FullMovie() {
   }
 
   function updateScoreHandler(
-    { id: movieId, review_id: reviewId },
+    { movie_id: movieId, review_id: reviewId },
     score
   ) {
     console.log("score", reviewId, score);
