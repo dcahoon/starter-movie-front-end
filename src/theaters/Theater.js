@@ -17,8 +17,8 @@ function Theater({ theater }) {
         <section className="col">
           <div className="row">
             {theater.movies.map((movie) => (
-              <div key={movie.movie_id} className="col-2">
-                <Link to={`/movies/${movie.movie_id}`}>
+              <div key={movie.id} className="col-2">
+                <Link to={`/movies/${movie.id}`}>
                   <img
                     alt={`${movie.title} Poster`}
                     src={movie.image_url}
