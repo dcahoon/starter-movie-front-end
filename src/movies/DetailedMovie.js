@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import AverageRating from "../movie/AverageRating";
 
 function DetailedMovie({ movie }) {
-  console.log(movie)
   return (
     <section className="row mt-4">
       <article className="col-sm-12 col-md-6 col-lg-3">
@@ -24,7 +23,7 @@ function DetailedMovie({ movie }) {
           <strong>Rating:</strong> {movie.rating}
         </p>
         <AverageRating reviews={movie.reviews} />
-        <Link to={`/movies/${movie.id}`} className="btn btn-primary">
+        <Link to={`/movies/${movie.movie_id}`} className="btn btn-primary">
           See More
         </Link>
       </aside>
