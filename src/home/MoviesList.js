@@ -10,12 +10,12 @@ function MoviesList() {
   useEffect(() => {
     setError(null);
     const abortController = new AbortController();
-    listMovies(abortController.signal).then(setMovies).catch(setError);
+    listMovies(abortController.signal).then((movies) => setMovies(movies)).catch(setError);
     return () => abortController.abort();
   }, []);
 
   const list = movies.map((movie) => (
-    <article key={movie.id} className="col-sm-12 col-md-6 col-lg-3 my-2">
+    <article key={movie.movie_id} className="col-sm-12 col-md-6 col-lg-3 my-2">
       <img
         alt={`${movie.title} Poster`}
         className="rounded"
@@ -23,7 +23,7 @@ function MoviesList() {
         style={{ width: "100%" }}
       />
       <Link
-        to={`/movies/${movie.movie_id}`}
+        to={`/movies/${movie.id}`}
         className="stretched-link text-dark"
       >
         <h3 className="font-poppins-heading text-center mt-2">{movie.title}</h3>

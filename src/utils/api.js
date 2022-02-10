@@ -45,11 +45,17 @@ async function fetchJson(url, options, onCancel) {
   }
 }
 
-function populateReviews(signal) {
+function populateReviews(signal, calledFromList) {
   return async (movie) => {
     console.log("populate reviews", movie)
-    const url = `${API_BASE_URL}/movies/${movie.id}/reviews`;
+    let url = ``
+    if (calledFromList) {
+      url = `${API_BASE_URL}/movies/${movie.id}/reviews`
+    } else {
+      url = `${API_BASE_URL}/movies/${movie.movie_id}/reviews`;
+    }
     movie.reviews = await fetchJson(url, { headers, signal }, []);
+    console.log("movie reviews:", movie.reviews)
     return movie;
   };
 }
@@ -70,7 +76,7 @@ function populateTheaters(signal) {
  */
 export async function listMovies(signal) {
   const url = new URL(`${API_BASE_URL}/movies?is_showing=true`);
-  const addReviews = populateReviews(signal);
+  const addReviews = populateReviews(signal, true);
   return await fetchJson(url, { headers, signal }, []).then((movies) =>
     Promise.all(movies.map(addReviews))
   );
@@ -92,8 +98,9 @@ export async function listTheaters(signal) {
  *  a promise that resolves to a possibly empty array of movies saved in the database.
  */
 export async function readMovie(movieId, signal) {
-  const url = new URL(`${API_BASE_URL}/movies/${movieId}`);
-  const addReviews = populateReviews(signal);
+  const url = `${API_BASE_URL}/movies/${movieId}`
+  console.log("readmovie url", url)
+  const addReviews = populateReviews(signal, false);
   const addTheaters = populateTheaters(signal);
   return await fetchJson(url, { headers, signal }, [])
     .then(addReviews)
