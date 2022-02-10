@@ -47,7 +47,7 @@ async function fetchJson(url, options, onCancel) {
 
 function populateReviews(signal) {
   return async (movie) => {
-    console.log("populate reviews")
+    console.log("populate reviews", movie)
     const url = `${API_BASE_URL}/movies/${movie.movie_id}/reviews`;
     movie.reviews = await fetchJson(url, { headers, signal }, []);
     return movie;
