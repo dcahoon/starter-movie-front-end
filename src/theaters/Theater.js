@@ -19,7 +19,6 @@ function Theater({ theater }) {
             {theater.movies.map((movie) => (
               <div key={movie.id} className="col-2">
                 <Link to={`/movies/${movie.movie_id}`}>
-                  {console.log("theater.js movie", movie.movie_id)}
                   <img
                     alt={`${movie.title} Poster`}
                     src={movie.image_url}
